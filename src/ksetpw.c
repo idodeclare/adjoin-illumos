@@ -240,9 +240,10 @@ void
 usage(const char *progname)
 {
 	fprintf(stderr, "Usage: %s [-c ccache] [-k keytab] "
-		"[-e enctype_list] [-n] princ\n", progname);
+		"[-e enctype_list] [-v krb5_kvno] [-n] princ\n", progname);
 	fprintf(stderr, "\t-n\tDon't set the principal's password\n");
 	fprintf(stderr, "\tenctype_list is a comma or whitespace separated list\n");
+	fprintf(stderr, "\tkrb5_kvno (default 1) is an integer key version number\n");
 	fprintf(stderr, "\tIf -n is used then -k and -e must be used\n");
 	exit(1);
 }
