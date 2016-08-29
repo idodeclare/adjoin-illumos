@@ -20,7 +20,7 @@
 #include <errno.h>
 #include <kerberosv5/krb5.h>
 
-static void ktadd(krb5_context ctx, krb5_keytab kt, const krb5_principal princ,
+static int  ktadd(krb5_context ctx, krb5_keytab kt, const krb5_principal princ,
 			krb5_enctype enctype, krb5_kvno kvno, const char *pw);
 
 static void usage(const char *progname);
@@ -39,7 +39,7 @@ main(int argc, char **argv)
 	char *sprincstr, *vprincstr;
 	char c;
 	char *ktname, *token, *lasts, *pw, *newpw;
-	int result_code, i, len, nflag = 0;
+	int result_code, i, len, nflag = 0, exit_code = 0;
 	krb5_data result_code_string, result_string;
 
 	/* Misc init stuff */
@@ -175,21 +175,26 @@ main(int argc, char **argv)
 		    result_code == 0 ? "success" : result_code_string.data,
 		    result_code,
 		    result_string.length, result_string.data);
+		if (result_code != 0) {
+			(void) fprintf(stderr, "krb5_set_password() failed\n");
+			return (1);
+		}
 	}
 
 	for (i = 0; i < enctype_count; i++) {
-		ktadd(ctx, kt, victim, enctypes[i], kvno, newpw);
+		result_code = ktadd(ctx, kt, victim, enctypes[i], kvno, newpw);
+		if (result_code != 0) exit_code = result_code;
 	}
 
 	if (kt != NULL)
 		krb5_kt_close(ctx, kt);
 
-	return (0);
+	return (exit_code);
 }
 
 
 static
-void
+int
 ktadd(krb5_context ctx, krb5_keytab kt, const krb5_principal princ,
 	krb5_enctype enctype, krb5_kvno kvno, const char *pw)
 {
@@ -202,11 +207,11 @@ ktadd(krb5_context ctx, krb5_keytab kt, const krb5_principal princ,
 
 	if ((code = krb5_enctype_to_string(enctype, buf, sizeof(buf)))) {
 		fprintf(stderr, "Enctype %d has no name!\n", enctype);
-		return;
+		return (2);
 	}
 	if ((entry = (krb5_keytab_entry *) malloc(sizeof(*entry))) == NULL) {
 		fprintf(stderr, "Out of memory\n");
-		return;
+		return (2);
 	}
 
 	memset((char *) entry, 0, sizeof(*entry));
@@ -216,7 +221,7 @@ ktadd(krb5_context ctx, krb5_keytab kt, const krb5_principal princ,
 
 	if ((code = krb5_principal2salt(ctx, princ, &salt)) != 0) {
 		fprintf(stderr, "Could not compute salt for %s\n", enctype);
-		return;
+		return (2);
 	}
 
 	code = krb5_c_string_to_key(ctx, enctype, &password, &salt, &key);
@@ -224,15 +229,18 @@ ktadd(krb5_context ctx, krb5_keytab kt, const krb5_principal princ,
 	if (code != 0) {
 		fprintf(stderr, "Could not compute salt for %s\n", enctype);
 		krb5_xfree(salt.data);
-		return;
+		return (2);
 	}
 
 	memcpy(&entry->key, &key, sizeof(krb5_keyblock));
 	entry->vno = kvno;
 	entry->principal = princ;
 
-	if (krb5_kt_add_entry(ctx, kt, entry) != 0)
+	if (krb5_kt_add_entry(ctx, kt, entry) != 0) {
 		fprintf(stderr, "Could not add entry to keytab\n");
+		return (2);
+	}
+	return (0);
 }
 
 static
