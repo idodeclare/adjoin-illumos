@@ -317,13 +317,13 @@ doKRB5config ()
 {
     if $do_config
     then
-	if [[ -f /etc/krb5/krb5.conf ]]
+	if [[ -f /etc/krb5/krb5.conf && ! -f /etc/krb5/krb5.conf-pre-adjoin ]]
 	then
 	    $verbose cp /etc/krb5/krb5.conf /etc/krb5/krb5.conf-pre-adjoin
 	    $dryrun cp /etc/krb5/krb5.conf /etc/krb5/krb5.conf-pre-adjoin
 	fi
 
-	if [[ -f /etc/krb5/krb5.keytab ]]
+	if [[ -f /etc/krb5/krb5.keytab && ! -f /etc/krb5/krb5.keytab-pre-adjoin ]]
 	then
 	    $verbose cp /etc/krb5/krb5.keytab /etc/krb5/krb5.keytab-pre-adjoin
 	    $dryrun cp /etc/krb5/krb5.keytab /etc/krb5/krb5.keytab-pre-adjoin
