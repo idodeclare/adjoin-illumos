@@ -809,11 +809,11 @@ $verbose "print $newpw | ./ksetpw host/${fqdn}@${realm}"
 if $notdryrun
 then
     print "$newpw" | ./ksetpw host/${fqdn}@${realm}
-
-    if [[ $? -ne 0 ]]
+    rc=$?
+    if [[ $rc -ne 0 ]]
     then
 	print "Failed to set account password!"
-	exit $?
+	exit $rc
     fi
 fi
 
