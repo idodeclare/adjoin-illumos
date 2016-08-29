@@ -83,7 +83,7 @@ main(int argc, char **argv)
 			break;
 		case 'e':
 			len = strlen(optarg);
-			token = strtok_r(optarg, ",\t,", &lasts);
+			token = strtok_r(optarg, ",\t ", &lasts);
 
 			if (token == NULL)
 				usage(argv[0]);
