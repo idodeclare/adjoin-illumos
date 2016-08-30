@@ -1,9 +1,10 @@
 /*
  * Copyright 2008 Sun Microsystems, Inc.  All rights reserved.
+ * Copyright 2016 C Fraire <cfraire@me.com>. All Rights Reserved.
  * Use is subject to license terms.
  */
 
-#pragma ident	"@(#)ksetpw.c 1.0	08/01/01 SMI"
+#pragma ident	"@(#)ksetpw.c 1.1	2016/08/29"
 
 /*
  * Compile (S10u5):
