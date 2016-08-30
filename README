@@ -25,11 +25,12 @@ sources
 sparc bits
 	sparc/adjoin
 	sparc/adleave
-	sparc/ksetpw
 i386 bits
 	i386/adjoin
 	i386/adleave
-	i386/ksetpw
+amd64 bits
+	amd64/adjoin
+	amd64/adleave
 
 ** Build the ksetpw program if the binaries are not available
    for your platform
@@ -60,7 +61,8 @@ ipnodes:    dns files
 
 ** Issues:
    1. To use this script with Windows 2008 server, remove "@${realm}" from
-      the userPrincipalName otherwise you'll get Authentication error
+      the userPrincipalName otherwise you'll get Authentication error. For
+      Windows 2012, however, it will work as it is without revision.
       # diff adjoin.win2k3 adjoin.longhorn  
       765c765
       < userPrincipalName: host/${fqdn}@${realm}
@@ -70,3 +72,4 @@ ipnodes:    dns files
 ** Acknowledgements
 Originally written by Nico Williams for the Winchester OpenSolaris project
 Updated by Baban Kenkre for Solaris 10.
+Updated by C Fraire for illumos and Windows Server 2012.

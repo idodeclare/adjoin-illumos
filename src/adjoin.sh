@@ -4,6 +4,7 @@
 # ident "@(#)adjoin.sh	1.0	08/01/01 SMI"
 #
 # Copyright 2008 Sun Microsystems, Inc.  All rights reserved.
+# Copyright 2016 C Fraire <cfraire@me.com>. All Rights Reserved.
 # Use is subject to license terms.
 #
 
@@ -316,13 +317,13 @@ doKRB5config ()
 {
     if $do_config
     then
-	if [[ -f /etc/krb5/krb5.conf ]]
+	if [[ -f /etc/krb5/krb5.conf && ! -f /etc/krb5/krb5.conf-pre-adjoin ]]
 	then
 	    $verbose cp /etc/krb5/krb5.conf /etc/krb5/krb5.conf-pre-adjoin
 	    $dryrun cp /etc/krb5/krb5.conf /etc/krb5/krb5.conf-pre-adjoin
 	fi
 
-	if [[ -f /etc/krb5/krb5.keytab ]]
+	if [[ -f /etc/krb5/krb5.keytab && ! -f /etc/krb5/krb5.keytab-pre-adjoin ]]
 	then
 	    $verbose cp /etc/krb5/krb5.keytab /etc/krb5/krb5.keytab-pre-adjoin
 	    $dryrun cp /etc/krb5/krb5.keytab /etc/krb5/krb5.keytab-pre-adjoin
@@ -808,11 +809,11 @@ $verbose "print $newpw | ./ksetpw host/${fqdn}@${realm}"
 if $notdryrun
 then
     print "$newpw" | ./ksetpw host/${fqdn}@${realm}
-
-    if [[ $? -ne 0 ]]
+    rc=$?
+    if [[ $rc -ne 0 ]]
     then
 	print "Failed to set account password!"
-	exit $?
+	exit $rc
     fi
 fi
 
