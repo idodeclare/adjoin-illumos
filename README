@@ -5,6 +5,9 @@ OF CONCEPT/TECHNOLOGY AND SHOULD NOT BE USED FOR PRODUCTION.
 ** See http://www.sun.com/bigadmin/common/berkeley_license.html for
    License details about this software.
 
+** See kerberos_s10.pdf, "Using Kerberos to Authenticate a
+   Solaris(TM) 10 OS LDAP Client With Microsoft Active Directory"
+
 ** adjoin script automates process of joining Solaris client to a
    AD domain. It automates the following steps:
    1. Auto-detect Active Directory domain controller. 
