@@ -45,10 +45,23 @@ domain mydomain.com
 search mydomain.com otherdomain.com
 nameserver 11.22.33.44
 
-** Use DNS for host resolution
-% grep dns /etc/nsswitch.conf
-hosts:      dns files
-ipnodes:    dns files
+** Edit /etc/nsswitch.ldap, which will be copied later by ldapclient to
+   overwrite /etc/nsswitch.conf:
+
+   1. Make a backup copy if not yet done (Bash syntax):
+% cp -a /etc/nsswitch.ldap{,.orig}
+
+   2. Edit /etc/nsswitch.ldap to use DNS (mdns only if applicable):
+hosts:		files dns mdns
+ipnodes:	files dns mdns
+
+   3. Continue to edit /etc/nsswitch.ldap, setting "ldap" for the following:
+passwd:	files ldap
+group:	files ldap
+
+   4. Finally, finish editing /etc/nsswitch.ldap to remove "ldap" from all
+      other "database" settings (e.g., from "networks", "protocols", "rpc",
+      etc.)
 
 ** Restart nscd and dns if resolv.conf or nsswitch.conf were modified
 % svcadm restart network/dns/client
