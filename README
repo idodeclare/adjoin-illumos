@@ -45,6 +45,11 @@ domain mydomain.com
 search mydomain.com otherdomain.com
 nameserver 11.22.33.44
 
+** Edit /etc/nsswitch.conf to  use DNS for host resolution
+% grep dns /etc/nsswitch.conf
+hosts:      dns files
+ipnodes:    dns files
+
 ** Edit /etc/nsswitch.ldap, which will be copied later by ldapclient to
    overwrite /etc/nsswitch.conf:
 
