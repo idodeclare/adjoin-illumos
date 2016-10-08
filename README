@@ -36,8 +36,8 @@ amd64 bits
 	amd64/adleave
 
 ** Build the ksetpw program if the binaries are not available
-   for your platform
-% cc -o ksetpw ksetpw.c -lkrb5
+   for your platform (CC is e.g. cc or gcc):
+% $CC -o ksetpw ../src/ksetpw.c -lkrb5
 
 ** Configure /etc/resolv.conf to point to AD DNS server
 % cat /etc/resolv.conf
