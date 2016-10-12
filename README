@@ -2,8 +2,11 @@ DISCLAIMER:
 THIS ADJOIN TOOL IS NOT SUPPORTED BY SUN. IT SHOULD BE CONSIDERED AS PROOF
 OF CONCEPT/TECHNOLOGY AND SHOULD NOT BE USED FOR PRODUCTION.
 
-** See http://www.sun.com/bigadmin/common/berkeley_license.html for
-   License details about this software.
+** See http://www.sun.com/bigadmin/common/berkeley_license.html (via
+   Wayback Machine) for License details about this software. See
+   http://www.illumos.org/license/CDDL for License details for newer
+   components of this software. CDDL-licensed code will have a CDDL-
+   referencing file header.
 
 ** See kerberos_s10.pdf, "Using Kerberos to Authenticate a
    Solaris(TM) 10 OS LDAP Client With Microsoft Active Directory"
