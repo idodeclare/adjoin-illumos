@@ -89,7 +89,7 @@ group:  files ldap
 
    4. Finally, finish editing /etc/nsswitch.ldap to remove "ldap" from all
       other "database" settings (e.g., from "networks", "protocols", "rpc",
-      etc.)
+      etc.).
 
 ** Follow the instructions in the kerberos_s10.pdf section "Initializing the
    Solaris LDAP Client." N.b. that the "ldapclient" commands as documented in
@@ -98,7 +98,7 @@ group:  files ldap
 
        -a serviceSearchDescriptor=group:cn=users,dc=companyxyz,dc=com?one
 
-   should be:
+   should be escaped as:
 
        -a serviceSearchDescriptor=group:cn=users,dc=companyxyz,dc=com\?one
 
