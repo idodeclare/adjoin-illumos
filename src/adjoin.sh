@@ -319,22 +319,22 @@ doKRB5config ()
     then
 	if [[ -f /etc/krb5/krb5.conf && ! -f /etc/krb5/krb5.conf-pre-adjoin ]]
 	then
-	    $verbose cp /etc/krb5/krb5.conf /etc/krb5/krb5.conf-pre-adjoin
-	    $dryrun cp /etc/krb5/krb5.conf /etc/krb5/krb5.conf-pre-adjoin
+	    $verbose cp -a /etc/krb5/krb5.conf /etc/krb5/krb5.conf-pre-adjoin
+	    $dryrun cp -a /etc/krb5/krb5.conf /etc/krb5/krb5.conf-pre-adjoin
 	fi
 
 	if [[ -f /etc/krb5/krb5.keytab && ! -f /etc/krb5/krb5.keytab-pre-adjoin ]]
 	then
-	    $verbose cp /etc/krb5/krb5.keytab /etc/krb5/krb5.keytab-pre-adjoin
-	    $dryrun cp /etc/krb5/krb5.keytab /etc/krb5/krb5.keytab-pre-adjoin
+	    $verbose cp -a /etc/krb5/krb5.keytab /etc/krb5/krb5.keytab-pre-adjoin
+	    $dryrun cp -a /etc/krb5/krb5.keytab /etc/krb5/krb5.keytab-pre-adjoin
 	fi
 
-	$verbose cp $KRB5_CONFIG /etc/krb5/krb5.conf
-	$dryrun cp $KRB5_CONFIG /etc/krb5/krb5.conf
+	$verbose mv $KRB5_CONFIG /etc/krb5/krb5.conf
+	$dryrun mv $KRB5_CONFIG /etc/krb5/krb5.conf
 	$verbose chmod 0644 /etc/krb5/krb5.conf
 	$dryrun chmod 0644 /etc/krb5/krb5.conf
-	$verbose cp $new_keytab /etc/krb5/krb5.keytab
-	$dryrun cp $new_keytab /etc/krb5/krb5.keytab
+	$verbose mv $new_keytab /etc/krb5/krb5.keytab
+	$dryrun mv $new_keytab /etc/krb5/krb5.keytab
 	$verbose chmod 0600 /etc/krb5/krb5.keytab
 	$dryrun chmod 0600 /etc/krb5/krb5.keytab
     else
