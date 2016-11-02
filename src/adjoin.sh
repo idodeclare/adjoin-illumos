@@ -697,7 +697,8 @@ then
 	if $extra_force
 	then
 	    print "Deleting the following object: ${sub_dn#$dn}"
-	    ldapdelete -h "$dc" $ldap_args "$sub_dn"
+	    $verbose ldapdelete -h "$dc" $ldap_args "$sub_dn"
+	    $dryrun ldapdelete -h "$dc" $ldap_args "$sub_dn"
 	elif $ignore_existing
 	then
 	    :
@@ -710,7 +711,7 @@ then
     then
 	print "Deleting existing machine account..."
 	$verbose ldapdelete -h "$dc" $ldap_args "$dn"
-	ldapdelete -h "$dc" $ldap_args "$dn"
+	$dryrun ldapdelete -h "$dc" $ldap_args "$dn"
     elif $modify_existing || $ignore_existing
     then
 	:
