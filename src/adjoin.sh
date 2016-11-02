@@ -835,7 +835,7 @@ else
 	print "(dryrun) KVNO would likely be: 1"
 fi
 
-# Set supported enctypes.  This only works for Longhorn/Vista, so we
+# Set supported enctypes.  This only works for Windows 2008,12,16 AD, so we
 # ignore errors here.
 userAccountControl=$((userAccountControlBASE + 524288 + 65536))
 set -A enctypes --
@@ -906,10 +906,10 @@ if [[ $? -ne 0 ]]
 then
 	aes128=false
 	aes256=false
-	print "This must not be a Longhorn/Vista AD DC!"
+	print "This must not be a Windows 2008,12,16 AD DC!"
 	print "\tSo we assume 1DES and arcfour enctypes"
 else
-	print "This must a Longhorn/Vista AD DC."
+	print "This must a Windows 2008,12,16 AD DC."
 fi
 
 # Add the strongest enctypes first to the enctypes[] array
