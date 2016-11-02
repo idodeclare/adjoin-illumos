@@ -275,7 +275,7 @@ getSubnets ()
 	done
 
 	[[ $addr -eq 0 || $netmask -eq 0 ]] && continue
-	[[ $((addr & 16\#ff000000)) -eq 16\#7f000000 ]] && continue
+	[[ $((addr & 16#ff000000)) -eq 16#7f000000 ]] && continue
 
 	print $(num2ipAddr $((addr & netmask)))/$(netmask2length $netmask)
     done
