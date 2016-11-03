@@ -627,8 +627,8 @@ then
 fi
 
 $verbose kinit "$cprinc"
-$dryrun kinit "$cprinc" || err 1 "Could not get a Kerberos V TGT for your admin principal"
-$dryrun eval got_tix=:
+kinit "$cprinc" || err 1 "Could not get a Kerberos V TGT for your admin principal"
+eval got_tix=:
 
 # Lookups involving LDAP searches, for which we need krb5 tix
 print "Looking for forest name"
@@ -703,7 +703,7 @@ then
 	then
 	    :
 	else
-	    print "The following object must be deleted (use -f -f, -r or -i): ${sub_dn#$dn}"
+	    print "The following object must be deleted (use -f, -r or -i): ${sub_dn#$dn}"
 	fi
     done
 
