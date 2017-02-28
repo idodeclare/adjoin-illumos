@@ -110,6 +110,7 @@ ipnodes:    dns files
    7.2. Edit `/etc/nsswitch.ldap` to use DNS (mdns only if applicable):
 
     ```
+% egrep '^(hosts:|ipnodes:)' /etc/nsswitch.ldap
 hosts:      files dns mdns
 ipnodes:    files dns mdns
     ```
@@ -117,6 +118,7 @@ ipnodes:    files dns mdns
    7.3. Continue to edit `/etc/nsswitch.ldap`, setting "ldap" for the following:
 
     ```
+% egrep '^(passwd:|group:)' /etc/nsswitch.ldap
 passwd: files ldap
 group:  files ldap
     ```
