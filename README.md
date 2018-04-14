@@ -58,33 +58,33 @@ krbpam script automates process of enabling the pam_krb5.so.1 in pam.conf
 1. Build the ksetpw program if the binaries are not available
    for your platform (CC is e.g. cc or gcc):
 
-    ```
+```
 % $CC -o ksetpw ../src/ksetpw.c -lkrb5
-    ```
+```
 
 2. Configure `/etc/resolv.conf` to point to AD DNS server
 
-    ```
+```
 % cat /etc/resolv.conf
 domain mydomain.com
 search mydomain.com otherdomain.com
 nameserver 11.22.33.44
-    ```
+```
 
 3. Use DNS for host resolution
 
-    ```
+```
 % grep dns /etc/nsswitch.conf
 hosts:      dns files
 ipnodes:    dns files
-    ```
+```
 
 4. Restart nscd and dns if resolv.conf or nsswitch.conf were modified
 
-    ```
+```
 % svcadm restart network/dns/client
 % svcadm restart name-service-cache
-    ```
+```
 
 5. In the same directory where you have ksetpw, run the adjoin script:
 
@@ -92,9 +92,9 @@ ipnodes:    dns files
     *  -n for dry runs
     *  -f force creation of machine account in AD by deleting existing entry
 
-    ```
+```
 % ./adjoin -f
-    ```
+```
 
 6. Optional: manually create DNS A and PTR RRs in AD for your client
 
@@ -103,25 +103,25 @@ ipnodes:    dns files
 
    7.1. Make a backup copy if not yet done (Bash syntax):
 
-    ```
+```
 % cp -a /etc/nsswitch.ldap{,.orig}
-    ```
+```
 
    7.2. Edit `/etc/nsswitch.ldap` to use DNS (mdns only if applicable):
 
-    ```
+```
 % egrep '^(hosts:|ipnodes:)' /etc/nsswitch.ldap
 hosts:      files dns mdns
 ipnodes:    files dns mdns
-    ```
+```
 
    7.3. Continue to edit `/etc/nsswitch.ldap`, setting "ldap" for the following:
 
-    ```
+```
 % egrep '^(passwd:|group:)' /etc/nsswitch.ldap
 passwd: files ldap
 group:  files ldap
-    ```
+```
 
    7.4. Finally, finish editing `/etc/nsswitch.ldap` to remove "ldap" from all
       other "database" settings (e.g., from "networks", "protocols", "rpc",
@@ -132,25 +132,25 @@ group:  files ldap
    the PDF do not properly escape for shells such as Bash the '?' characters
    appearing as arguments. For example, the following:
 
-    ````
+````
        -a serviceSearchDescriptor=group:cn=users,dc=companyxyz,dc=com?one
-    ````
+````
 
    should be escaped as:
 
-    ````
+````
        -a serviceSearchDescriptor=group:cn=users,dc=companyxyz,dc=com\?one
-    ````
+````
 
 9. If the LDAP client tests run without error, run the krbpam script:
     *  -h to get help
     *  -n for dry runs
     *  -v for verbose output
 
-    ````
+````
 % ./krbpam -n -v		# dry-run
 % ./krbpam
-    ````
+````
 
 # ISSUES
 
@@ -158,13 +158,13 @@ group:  files ldap
       the userPrincipalName otherwise you'll get Authentication error. For
       Windows 2012 or higher, however, it will work as it is without revision.
 
-    ````
+````
       # diff adjoin.win2k3 adjoin.longhorn  
       765c765
       < userPrincipalName: host/${fqdn}@${realm}
       ---
       > userPrincipalName: host/${fqdn}
-    ````
+````
 
 
 # Acknowledgements
