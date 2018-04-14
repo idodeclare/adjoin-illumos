@@ -55,8 +55,8 @@ krbpam script automates process of enabling the pam_krb5.so.1 in pam.conf
 
 # Installation
 
-1. Build the ksetpw program if the binaries are not available
-   for your platform (CC is e.g. cc or gcc):
+1. Build the `ksetpw` program if the binaries are not available
+   for your platform (`CC` is e.g. `cc` or `gcc`):
 
 ```
 % $CC -o ksetpw ../src/ksetpw.c -lkrb5
@@ -79,18 +79,18 @@ hosts:      dns files
 ipnodes:    dns files
 ```
 
-4. Restart nscd and dns if resolv.conf or nsswitch.conf were modified
+4. Restart nscd and dns if `resolv.conf` or `nsswitch.conf` were modified
 
 ```
 % svcadm restart network/dns/client
 % svcadm restart name-service-cache
 ```
 
-5. In the same directory where you have ksetpw, run the adjoin script:
+5. In the same directory where you have `ksetpw`, run the `adjoin` script:
 
-    *  -h to get help
-    *  -n for dry runs
-    *  -f force creation of machine account in AD by deleting existing entry
+    *  `-h` to get help
+    *  `-n` for dry runs
+    *  `-f` force creation of machine account in AD by deleting existing entry
 
 ```
 % ./adjoin -f
@@ -98,8 +98,8 @@ ipnodes:    dns files
 
 6. Optional: manually create DNS A and PTR RRs in AD for your client
 
-7. If the adjoin script runs without error, edit `/etc/nsswitch.ldap`, which
-   will be copied later by ldapclient to overwrite `/etc/nsswitch.conf`:
+7. If the `adjoin` script runs without error, edit `/etc/nsswitch.ldap`, which
+   will be copied later by `ldapclient` to overwrite `/etc/nsswitch.conf`:
 
    7.1. Make a backup copy if not yet done (Bash syntax):
 
@@ -142,10 +142,10 @@ group:  files ldap
        -a serviceSearchDescriptor=group:cn=users,dc=companyxyz,dc=com\?one
 ````
 
-9. If the LDAP client tests run without error, run the krbpam script:
-    *  -h to get help
-    *  -n for dry runs
-    *  -v for verbose output
+9. If the LDAP client tests run without error, run the `krbpam` script:
+    *  `-h` to get help
+    *  `-n` for dry runs
+    *  `-v` for verbose output
 
 ````
 % ./krbpam -n -v		# dry-run
