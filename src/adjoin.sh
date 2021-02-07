@@ -12,6 +12,8 @@
 PROG=${0#*/}
 
 PATH=/usr/sbin:/usr/bin:$PATH:/opt/sfw/bin
+export PATH
+
 grep=/usr/xpg4/bin/grep
 
 fatal ()
