@@ -165,7 +165,9 @@ main(int argc, char **argv)
 		code = krb5_set_password_using_ccache(ctx, cc, newpw, victim,
 			&result_code, &result_code_string, &result_string);
 		if (code != 0) {
-			(void) fprintf(stderr, "krb5_set_password() failed\n");
+			(void) fprintf(stderr, "krb5_set_password() failed"
+			    " (err=%s)\n",
+			    krb5_get_error_message(ctx, code));
 			return (1);
 		}
 		krb5_cc_close(ctx, cc);
