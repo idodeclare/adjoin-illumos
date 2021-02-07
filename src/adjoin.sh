@@ -808,7 +808,7 @@ done
 # We add one uppercase letter so we pass the password quality check
 # (three character classes!)
 newpw=A$newpw
-$verbose "print $newpw | ./ksetpw host/${fqdn}@${realm}"
+$verbose "print <***password***> | ./ksetpw host/${fqdn}@${realm}"
 if $notdryrun
 then
     print "$newpw" | ./ksetpw host/${fqdn}@${realm}
