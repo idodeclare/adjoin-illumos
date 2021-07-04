@@ -30,7 +30,7 @@ ipnodes:    dns files
 % svcadm restart name-service-cache
 ```
 
-5. In the same directory where you have `ksetpw`, run the `adjoin` script:
+5. In your platform directory (e.g. adjoin-illumos/amd64), run `adjoin`:
 
     *  `-h` to get help
     *  `-n` for dry runs
