@@ -1,10 +1,9 @@
 # Installation
 
-1. Build the `ksetpw` program if the binaries are not available
-   for your platform (`CC` is e.g. `cc` or `gcc`):
+1. Install the "Kerberos V5 Master KDC (user)" package
 
 ```
-% $CC -o ksetpw ../src/ksetpw.c -lkrb5
+# pkg install system/security/kerberos-5
 ```
 
 2. Configure `/etc/resolv.conf` to point to AD DNS server

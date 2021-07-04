@@ -808,10 +808,10 @@ done
 # We add one uppercase letter so we pass the password quality check
 # (three character classes!)
 newpw=A$newpw
-$verbose "print <***password***> | ./ksetpw host/${fqdn}@${realm}"
+$verbose "print <***password***> | /usr/lib/krb5/ksetpw host/${fqdn}@${realm}"
 if $notdryrun
 then
-    print "$newpw" | ./ksetpw host/${fqdn}@${realm}
+    print "$newpw" | /usr/lib/krb5/ksetpw host/${fqdn}@${realm}
     rc=$?
     if [[ $rc -ne 0 ]]
     then
@@ -974,7 +974,8 @@ do
 	args[${#args[@]}]=$enctype
 done
 rm "$new_keytab"
-print "$newpw"|./ksetpw -n -v $kvno -k "$new_keytab" "${args[@]}" host/${fqdn}@${realm}
+print "$newpw" | /usr/lib/krb5/ksetpw -n -v $kvno -k "$new_keytab" \
+    "${args[@]}" host/${fqdn}@${realm}
 
 doKRB5config
 
