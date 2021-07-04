@@ -4,7 +4,7 @@
 # ident "@(#)adjoin.sh	1.0	08/01/01 SMI"
 #
 # Copyright 2008 Sun Microsystems, Inc.  All rights reserved.
-# Copyright 2016 C Fraire <cfraire@me.com>. All Rights Reserved.
+# Portions Copyright 2016, 2021 C Fraire <cfraire@me.com>.
 # Use is subject to license terms.
 #
 
