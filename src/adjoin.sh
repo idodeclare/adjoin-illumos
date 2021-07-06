@@ -973,9 +973,14 @@ do
 	args[${#args[@]}]=-e
 	args[${#args[@]}]=$enctype
 done
-rm "$new_keytab"
-print "$newpw" | /usr/lib/krb5/ksetpw -n -v $kvno -k "$new_keytab" \
-    "${args[@]}" host/${fqdn}@${realm}
+$verbose "print <***password***> | /usr/lib/krb5/ksetpw -n -v $kvno " \
+    -k "$new_keytab" "${args[@]}" host/${fqdn}@${realm}
+if $notdryrun
+then
+	rm "$new_keytab"
+	print "$newpw" | /usr/lib/krb5/ksetpw -n -v $kvno -k "$new_keytab" \
+	    "${args[@]}" host/${fqdn}@${realm}
+fi
 
 doKRB5config
 
