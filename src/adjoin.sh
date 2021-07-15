@@ -926,6 +926,7 @@ if $arcfour
 then
 	enctypes[${#enctypes[@]}]=arcfour-hmac-md5
 	print "ARCFOUR will be supported"
+	des=false
 else
 	# Use 1DES ONLY if we don't have arcfour
 	userAccountControl=$((userAccountControl + 2097152))
@@ -943,10 +944,6 @@ then
 	print "Please enable arcfour or 1DES, then re-join; see cryptoadm(1M)"
 	exit 1
 fi
-
-# We should probably check whether arcfour is available, and if not,
-# then set the 1DES only flag, but whatever, it's not likely NOT to be
-# available on S10/Nevada!
 
 # Reset userAccountControl
 #
